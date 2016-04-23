@@ -27,13 +27,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
-import android.view.animation.OvershootInterpolator;
 import android.widget.Checkable;
 import android.widget.FrameLayout;
-
-import com.nineoldandroids.animation.AnimatorSet;
-import com.nineoldandroids.animation.ObjectAnimator;
-import com.nineoldandroids.view.ViewHelper;
 
 import net.soulwolf.widget.materialradio.listener.OnButtonCheckedChangeListener;
 import net.soulwolf.widget.materialradio.listener.OnStateButtonCheckedListener;
@@ -92,10 +87,6 @@ public class MaterialCompoundButton extends FrameLayout implements Checkable, On
         mButtonText = (MaterialStateText) findViewById(R.id.mci_compound_button_text);
         mButtonView.setOnStateButtonCheckedListener(this);
         applyAttributeSet(context, attrs);
-        if(isAnimator()){
-            ViewHelper.setScaleX(this, 0.85f);
-            ViewHelper.setScaleY(this, 0.85f);
-        }
     }
 
     private void applyAttributeSet(Context context, AttributeSet attrs) {
@@ -162,24 +153,12 @@ public class MaterialCompoundButton extends FrameLayout implements Checkable, On
         if(canAnimate()){
             clearAnimation();
         }
-        AnimatorSet animatorSet = new AnimatorSet();
-        animatorSet.play(ObjectAnimator.ofFloat(this, "scaleX", 1.0f));
-        animatorSet.play(ObjectAnimator.ofFloat(this, "scaleY", 1.0f));
-        animatorSet.setInterpolator(new OvershootInterpolator());
-        animatorSet.setDuration(getDuration());
-        animatorSet.start();
     }
 
     private void end() {
         if(canAnimate()){
             clearAnimation();
         }
-        AnimatorSet animatorSet = new AnimatorSet();
-        animatorSet.play(ObjectAnimator.ofFloat(this, "scaleX", 0.85f));
-        animatorSet.play(ObjectAnimator.ofFloat(this, "scaleY", 0.85f));
-        animatorSet.setInterpolator(new OvershootInterpolator());
-        animatorSet.setDuration(getDuration());
-        animatorSet.start();
     }
 
     @Override
